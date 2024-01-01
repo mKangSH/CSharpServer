@@ -1,10 +1,10 @@
-IF NOT EXIST ../../PacketGenerator/bin/Debug/PacketGenerator.exe GOTO DEBUGNOTEXIST
-START ../../PacketGenerator/bin/Debug/PacketGenerator.exe ../../PacketGenerator/PDL.xml
+IF NOT EXIST ../../PacketGenerator/bin/Release/PacketGenerator.exe GOTO RELEASENOTEXIST 
+START ../../PacketGenerator/bin/Release/PacketGenerator.exe ../../PacketGenerator/PDL.xml
 GOTO EXECUTE
 
-:DEBUGNOTEXIST
-IF NOT EXIST ../../PacketGenerator/bin/Release/PacketGenerator.exe GOTO DONE
-START ../../PacketGenerator/bin/Release/PacketGenerator.exe ../../PacketGenerator/PDL.xml
+:RELEASENOTEXIST
+IF NOT EXIST ../../PacketGenerator/bin/Debug/PacketGenerator.exe GOTO DONE
+START ../../PacketGenerator/bin/Debug/PacketGenerator.exe ../../PacketGenerator/PDL.xml
 GOTO EXECUTE
 
 :EXECUTE

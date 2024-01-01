@@ -13,7 +13,7 @@ namespace ServerCore
         Socket _listenerSocket;
         Func<Session> _sessionFactory;
 
-        public void Init(IPEndPoint endPoint, Func<Session> sessionFactory)
+        public void Init(IPEndPoint endPoint, Func<Session> sessionFactory, int register = 10, int backlog = 100)
         {
             _listenerSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -23,11 +23,14 @@ namespace ServerCore
             _listenerSocket.Bind(endPoint);
 
             // 최대 대기수(10)
-            _listenerSocket.Listen(10);
+            _listenerSocket.Listen(backlog);
 
-            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-            args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
-            RegisterAccept(args);
+            for(int i = 0; i < register; i++) 
+            {
+                SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+                args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
+                RegisterAccept(args);
+            }
         }
 
         void RegisterAccept(SocketAsyncEventArgs args)

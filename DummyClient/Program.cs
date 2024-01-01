@@ -17,12 +17,14 @@ namespace DummyClient
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
             Connector connector = new Connector();
-            connector.Connect(endPoint, () => { return new ServerSession(); });
+            connector.Connect(endPoint, () => { return SessionManager.Instance.Generate(); }, 
+                count: 500);
 
             while (true)
             {
                 try
                 {
+                    SessionManager.Instance.SendForEach();
                 }
 
                 catch (Exception e)
@@ -30,7 +32,8 @@ namespace DummyClient
                     Console.WriteLine(e.ToString());
                 }
 
-                Thread.Sleep(100);
+                // 일반적인 mmo 이동 패킷은 250ms
+                Thread.Sleep(250);
             }
         }
     }

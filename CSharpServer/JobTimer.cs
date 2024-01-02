@@ -16,6 +16,8 @@ namespace Server
         }
     }
 
+    // 짧은 시간 : [20ms][20ms][20ms][20ms][][]
+    // 긴 시간 : PriorityQueue
     class JobTimer
     {
         PriorityQueue<JobTimerElem> _pq = new PriorityQueue<JobTimerElem>();
@@ -55,7 +57,7 @@ namespace Server
                     _pq.Pop();
                 }
 
-                job.action.Invoke();
+                job.action?.Invoke();
             }
         }
     }

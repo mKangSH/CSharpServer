@@ -81,6 +81,7 @@ namespace ServerCore
         {
             if (_heap.Count == 0)
                 return default(T);
+
             return _heap[0];
         }
     }

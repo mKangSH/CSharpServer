@@ -10,7 +10,9 @@ GOTO EXECUTE
 :EXECUTE
 XCOPY /Y GenPackets.cs "../../DummyClient/Packet"
 XCOPY /Y GenPackets.cs "../../CSharpServer/Packet"
+XCOPY /Y GenPackets.cs "../../Client/Assets/Scripts/Packet"
 
 XCOPY /Y ClientPacketManager.cs "../../DummyClient/Packet"
+XCOPY /Y ClientPacketManager.cs "../../Client/Assets/Scripts/Packet"
 XCOPY /Y ServerPacketManager.cs "../../CSharpServer/Packet"
 :DONE

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 class PacketHandler
 {
-    public static void C_ChatHandler(PacketSession session, IPacket packet)
+    public static void C_ExitGameHandler(PacketSession session, IPacket packet)
     {
-        C_Chat chatPacket = packet as C_Chat;
         ClientSession clientSession = session as ClientSession;
 
         if(clientSession.Room == null)
@@ -19,6 +18,21 @@ class PacketHandler
         }
 
         GameRoom room = clientSession.Room;
-        room.Push(() => room.Broadcast(clientSession, chatPacket.chat));
+        room.Push(() => room.Exit(clientSession));
+    }
+
+    public static void C_MoveHandler(PacketSession session, IPacket packet)
+    {
+        C_Move movePacket = packet as C_Move;
+        ClientSession clientSession = session as ClientSession;
+        
+        if (clientSession.Room == null)
+        {
+            return;
+        }
+        // Console.WriteLine($"[{movePacket.posX}], [{movePacket.posY}], [{movePacket.posZ}]");
+
+        GameRoom room = clientSession.Room;
+        room.Push(() => room.Move(clientSession, movePacket));
     }
 }
